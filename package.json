@@ -1,0 +1,27 @@
+{
+  "name": "project",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc && vite build",
+    "preview": "vite preview",
+    "prepare": "husky install"
+  },
+  "dependencies": {
+    "vue": "^3.2.47"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^17.6.5",
+    "@vitejs/plugin-vue": "^4.1.0",
+    "husky": "^8.0.3",
+    "typescript": "^5.0.2",
+    "vite": "^4.3.9",
+    "vue-tsc": "^1.4.2"
+  },
+  "lint-staged": {
+    "src/**/{*.vue,*.js,*.ts,*.jsx,*.tsx}": "eslint --fix",
+    "src/**/{*.scss,*.css}": "stylelint --fix"
+  }
+}
