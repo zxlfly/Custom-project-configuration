@@ -30,7 +30,20 @@
 ```
 执行``npm run lint:create``会自动创建一个.eslintrc.cjs文件;安装完成后，后面的启动项目还缺少一些依赖，提前按需安装好
 ``npm i typescript @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-import-resolver-alias @types/eslint @types/node -D``
+```
+You can also run this command directly using 'npm init @eslint/config'.
+√ How would you like to use ESLint? · problems    
+√ What type of modules does your project use? · esm
+√ Which framework does your project use? · vue
+√ Does your project use TypeScript? · No / Yes
+√ Where does your code run? · browser, node
+√ What format do you want your config file to be in? · JavaScript
+The config that you've selected requires the following dependencies:
 
+eslint-plugin-vue@latest @typescript-eslint/eslint-plugin@latest @typescript-eslint/parser@latest
+√ Would you like to install them now? · No / Yes
+√ Which package manager do you want to use? · npm
+```
 - @typescript-eslint/parser				     eslint解析器，解析typescript，检查规范typescript代码
 - @typescript-eslint/eslint-plugin		 eslint插件，包含了各类定义好的检测typescript代码的规范
 - eslint-import-resolver-alias			   让我们可以用import的时候使用@别名
