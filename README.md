@@ -24,7 +24,7 @@
 ```
 // package.json中添加配置
 "script":{
-  "lint:create":eslint --init,
+  "lint:create":"eslint --init",
   "lint": "eslint \"src/**/*.{js,vue,ts}\" --fix"
 }
 ```
