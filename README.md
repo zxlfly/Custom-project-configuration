@@ -4,7 +4,9 @@
 默认使用vite``npm create vite@latest``  
 默认选择Vue + ts 开发  
 后续可能考虑升级为pnpm
-
+## Vue全家桶安装
+### vur-router
+### 
 ## 开发代码规范配置
 
 ### [eslint](https://eslint.org/)、[prettier](https://prettier.io/docs/en/install.html)
@@ -162,3 +164,5 @@ npx husky add .husky/pre-commit "npx lint-staged"
 项目配置的内容
 文件内容 VITE_BASE_URL = 'http://xxx-pre.xxx.com/api'
 ```
+#### 开发工具vscode配置文件settings.json
+这个文件配置也可以抽离出来统一配置，根据实际情况选择，主要是针对于eslint、stylelint、prettier这些配置的统一

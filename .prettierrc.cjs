@@ -2,7 +2,7 @@ module.exports = {
   // 一行最多多少字符
   printWidth: 80,
   // 使用2个空格缩进
-  tabWidth: 2,
+  tabWidth: 4,
   // 使用tab缩进，不使用空格
   useTabs: true,
   // 行尾需要分号
@@ -32,4 +32,31 @@ module.exports = {
   htmlWhitespaceSensitivity: 'css',
   // 换行符使用lf
   endOfLine: 'lf',
-};
+  // JSX标签的尖括号是否与标签的最后一个属性在同一行
+  jsxBracketSameLine: true,
+  rules: {
+    filename: [
+      {
+        match: "^[a-zA-Z0-9_-]+.js$",
+        name: "customFormat",
+        args: ["$1"],
+        errorMessage: "Filename should have lowercase letters, digits, hyphens and underscores"
+      }
+    ],
+    directory: {
+      maxDepth: 2,
+      extensions: ["*"],
+      requiredEndingSlash: false,
+      ignoredFiles: ["**/node_modules/**"],
+      visitor: {
+        file: function(file) {
+          if (file.isDirectory()) {
+            file.path = path.join(file.path, "index.js");
+          } else if (file.isBlockCommented() && file.content.startsWith("#")) {
+            return;
+          }
+        }
+      }
+    }
+  }
+}

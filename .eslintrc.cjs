@@ -1,25 +1,5 @@
 module.exports = {
-  // 环境:
-  env: {
-    // 浏览器
-    browser: true,
-    // 最新es语法
-    es2021: true,
-    // node环境
-    node: true,
-  },
-  // 扩展的eslint规范语法，可以被继承的规则
-  // 字符串数组：每个配置继承它前面的配置
-  // 分别是：
-  // eslint-plugin-vue提供的
-  // eslint-config-airbnb-base提供的
-  // eslint-config-prettier提供的
-  // 前缀 eslint-config-, 可省略
-  extends: [
-    'plugin:vue/vue3-strongly-recommended',
-    'airbnb-base',
-    'prettier'
-  ],
+  root: true,
   // eslint 会对我们的代码进行检验
   // parser的作用是将我们写的代码转换为ESTree（AST）
   // ESLint会对ESTree进行校验
@@ -37,12 +17,14 @@ module.exports = {
       jsx: true,
     },
   },
-  // 全局自定义的宏，这样在源文件中使用全局变量就不会报错或者警告
-  globals: {
-    defineProps: 'readonly',
-    defineEmits: 'readonly',
-    defineExpose: 'readonly',
-    withDefault: 'readonly',
+  // 环境:
+  env: {
+    // 浏览器
+    browser: true,
+    // 最新es语法
+    es2021: true,
+    // node环境
+    node: true,
   },
   // 插件
   // 前缀 eslint-plugin-, 可省略
@@ -52,6 +34,27 @@ module.exports = {
     'vue',
     '@typescript-eslint'
   ],
+  // 扩展的eslint规范语法，可以被继承的规则
+  // 字符串数组：每个配置继承它前面的配置
+  // 分别是：
+  // eslint-plugin-vue提供的
+  // eslint-config-airbnb-base提供的
+  // eslint-config-prettier提供的
+  // 前缀 eslint-config-, 可省略
+  extends: [
+    'plugin:@typescript-eslint/recommended',
+    'plugin:vue/vue3-strongly-recommended',
+    'airbnb-base',
+    'prettier'
+  ],
+  // 全局自定义的宏，这样在源文件中使用全局变量就不会报错或者警告
+  globals: {
+    defineProps: 'readonly',
+    defineEmits: 'readonly',
+    defineExpose: 'readonly',
+    withDefault: 'readonly',
+  },
+
   settings: {
     // 设置项目内的别名
     'import/reslover': {
@@ -66,10 +69,53 @@ module.exports = {
   },
   // 自定义规则，覆盖上面extends继承的第三方库的规则，根据组内成员灵活定义
   rules: {
+    "semi": [
+      "error",
+      "never"
+    ],
     'import/no-extraneous-dependencies': 0,
     'no-param-reassing': 0,
     'vue/multi-word-commponent-names': 0,
     'vue/attribute-hyphenation': 0,
     'vue/v-on-event-hyphenation': 0,
+
+    'vue/require-prop-types': 'error',
+    'vue/prop-name-casing': ["error", "camelCase"],
+    'vue/one-component-per-file': 'error',
+    'vue/custom-event-name-casing': ["error", "camelCase"],
+    'vue/max-attributes-per-line': [
+      2,
+      {
+        singleline: 20,
+        multiline: 1,
+      },
+    ],
+    'no-multiple-empty-lines': 'error',
+    'no-shadow': 'off',
+    'no-trailing-spaces': 'error',
+    'no-unused-labels': 'error',
+    'no-use-before-define': 'error',
+    'no-var': 'error',
+    'prefer-const': 'error',
+    'space-in-parens': ['error', 'never'],
+    'spaced-comment': ['error', 'always'],
+    '@typescript-eslint/dot-notation': 'off',
+    '@typescript-eslint/indent': [
+      'error',
+      2,
+      { FunctionDeclaration: { parameters: 'first' }, FunctionExpression: { parameters: 'first' } },
+    ],
+    '@typescript-eslint/no-misused-new': 'error',
+    '@typescript-eslint/no-non-null-assertion': 'error',
+    '@typescript-eslint/prefer-function-type': 'error',
+    '@typescript-eslint/type-annotation-spacing': 'error',
+    '@typescript-eslint/unified-signatures': 'error',
+    '@typescript-eslint/no-shadow': 'error',
+    'prefer-promise-reject-errors': 'off',
+    'max-nested-callbacks': ['error', 6],
+    '@typescript-eslint/no-this-alias': 'off',
+    'accessor-pairs': 'off',
+    '@typescript-eslint/member-ordering': 'error',
+    'array-callback-return': 'error',
   },
-};
+}

@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 
-defineProps<{ msg: string }>()
-
+defineProps<{ msg: string; fullName: string }>()
 const count = ref(0)
 const add = () => {
 	count.value += 1
@@ -32,7 +31,9 @@ console.log(a)
 	</p>
 	<p>
 		Install
-		<a href="https://github.com/vuejs/language-tools" target="_blank">Volar</a>
+		<a href="https://github.com/vuejs/language-tools" target="_blank">
+			Volar
+		</a>
 		in your IDE for a better DX
 	</p>
 	<p class="read-the-docs">Click on the Vite and Vue logos to learn more</p>
