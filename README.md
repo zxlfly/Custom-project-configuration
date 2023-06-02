@@ -28,7 +28,7 @@
   "lint": "eslint \"src/**/*.{js,vue,ts}\" --fix"
 }
 ```
-执行``npm run lint:create``会自动创建一个.eslintrc.cjs文件;安装完成后，后面的启动项目还缺少一些依赖，提前按需安装好
+执行``npm run lint:create``会自动创建一个.eslintrc.cjs文件;安装完成后，后面的启动项目还缺少一些依赖，提前按需安装好  
 ``npm i typescript @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-import-resolver-alias @types/eslint @types/node -D``
 ```
 You can also run this command directly using 'npm init @eslint/config'.
