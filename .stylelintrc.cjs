@@ -14,4 +14,8 @@ module.exports = {
 			extends: ['stylelint-config-recommended-less'],
 		},
 	],
-};
+	rules: {
+		// 不强制将引入修改为 import url()形式
+		'import-notation': null,
+	},
+}
