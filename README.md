@@ -19,63 +19,165 @@
 除了安装 npm 包以外，还需要安装 vscode 对应的两个插件，这样开发的时候配合使用更
 方便！
 
-#### 初始化
-
-`npm i eslint eslint-plugin-vue eslint-config-prettier prettier eslint-plugin-import eslint-plugin-prettier eslint-config-airbnb-base -D`
-
--   eslint: ESLint 的核心库
--   prettier: prettier 格式化代码的核心库
--   eslint-config-airbnb-base airbnb 的代码规范（依赖 plugin-import）
--   eslint-config-prettier eslint 结合 prettier 的格式化
--   eslint-plugin-vue eslint 在 vue 里的代码规范
--   eslint-plugin-import 项目里面支持 eslint
--   eslint-plugin-prettier 将 prettier 结合进去 eslint 的插件
-
-#### 配置
-
-```
-// package.json中添加配置
-"script":{
-  "lint:create":"eslint --init",
-  "lint": "eslint \"src/**/*.{js,vue,ts}\" --fix"
-}
-```
-
-执行`npm run lint:create`会自动创建一个.eslintrc.cjs 文件;安装完成后，后面的启动
-项目还缺少一些依赖，提前按需安装好  
-`npm i typescript @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-import-resolver-alias @types/eslint @types/node -D`
-
-```
-You can also run this command directly using 'npm init @eslint/config'.
-√ How would you like to use ESLint? · problems
+#### eslint配置
+首先安装eslint  
+`pnpm i eslint -D`
+生成配置文件:.eslint.js  
+`npx eslint --init`  
+生成配置文件的一些选项，根据实际项目需求选择：  
+√ How would you like to use ESLint? · problems    
 √ What type of modules does your project use? · esm
 √ Which framework does your project use? · vue
 √ Does your project use TypeScript? · No / Yes
-√ Where does your code run? · browser, node
+√ Where does your code run? · browser
 √ What format do you want your config file to be in? · JavaScript
 The config that you've selected requires the following dependencies:
 
 eslint-plugin-vue@latest @typescript-eslint/eslint-plugin@latest @typescript-eslint/parser@latest
 √ Would you like to install them now? · No / Yes
-√ Which package manager do you want to use? · npm
+√ Which package manager do you want to use? · pnpm
 ```
+module.exports = {
+   //运行环境
+    "env": { 
+        "browser": true,//浏览器端
+        "es2021": true,//es2021
+    },
+    //规则继承
+    "extends": [ 
+       //全部规则默认是关闭的,这个配置项开启推荐规则,推荐规则参照文档
+       //比如:函数不能重名、对象不能出现重复key
+        "eslint:recommended",
+        //vue3语法规则
+        "plugin:vue/vue3-essential",
+        //ts语法规则
+        "plugin:@typescript-eslint/recommended"
+    ],
+    //要为特定类型的文件指定处理器
+    "overrides": [
+    ],
+    //指定解析器:解析器
+    //Esprima 默认解析器
+    //Babel-ESLint babel解析器
+    //@typescript-eslint/parser ts解析器
+    "parser": "@typescript-eslint/parser",
+    //指定解析器选项
+    "parserOptions": {
+        "ecmaVersion": "latest",//校验ECMA最新版本
+        "sourceType": "module"//设置为"script"（默认），或者"module"代码在ECMAScript模块中
+    },
+    //ESLint支持使用第三方插件。在使用插件之前，您必须使用npm安装它
+    //该eslint-plugin-前缀可以从插件名称被省略
+    "plugins": [
+        "vue",
+        "@typescript-eslint"
+    ],
+    //eslint规则
+    "rules": {
+    }
+}
+```
+接着安装些vue3环境代码校验插件
+`pnpm install -D eslint-plugin-import eslint-plugin-vue eslint-plugin-prettier eslint-config-prettier eslint-plugin-node @babel/eslint-parser`
+- 让所有与prettier规则存在冲突的Eslint rules失效，并使用prettier进行代码检查  
+	- "eslint-config-prettier" 
+	- "eslint-plugin-import" 
+	- "eslint-plugin-node"
+- 运行更漂亮的Eslint，使prettier规则优先级更高，Eslint优先级低  
+	- "eslint-plugin-prettier"
+- vue.js的Eslint插件（查找vue语法错误，发现错误指令，查找违规风格指南  
+	- "eslint-plugin-vue" 
+- 该解析器允许使用Eslint校验所有babel code  
+	- "@babel/eslint-parser" 
 
--   @typescript-eslint/parser eslint 解析器，解析 typescript，检查规范
-    typescript 代码
--   @typescript-eslint/eslint-plugin eslint 插件，包含了各类定义好的检测
-    typescript 代码的规范
--   eslint-import-resolver-alias 让我们可以用 import 的时候使用@别名
+最终配置对象
+```
+// @see https://eslint.bootcss.com/docs/rules/
 
-上面这些配置只有基本功能已经实现了，还可以使用`vite-plugin-eslint`来进一步优化开
-发体验  
-`npm i vite-plugin-eslint -D`  
-vite 的一个插件，让项目可以方便的得到 eslint 支持，完成 eslint 配置后，可以快速
-的将其集成进 vite 之中，便于在代码不符合 eslint 规范的第一时间看到提示
+module.exports = {
+  env: {
+    browser: true,
+    es2021: true,
+    node: true,
+    jest: true,
+  },
+  /* 指定如何解析语法 */
+  parser: 'vue-eslint-parser',
+  /** 优先级低于 parse 的语法解析配置 */
+  parserOptions: {
+    ecmaVersion: 'latest',
+    sourceType: 'module',
+    parser: '@typescript-eslint/parser',
+    jsxPragma: 'React',
+    ecmaFeatures: {
+      jsx: true,
+    },
+  },
+  /* 继承已有的规则 */
+  extends: [
+    'eslint:recommended',
+    'plugin:vue/vue3-essential',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:prettier/recommended',
+  ],
+  plugins: ['vue', '@typescript-eslint'],
+  /*
+   * "off" 或 0    ==>  关闭规则
+   * "warn" 或 1   ==>  打开的规则作为警告（不影响代码执行）
+   * "error" 或 2  ==>  规则作为一个错误（代码不能执行，界面报错）
+   */
+  rules: {
+    // eslint（https://eslint.bootcss.com/docs/rules/）
+    'no-var': 'error', // 要求使用 let 或 const 而不是 var
+    'no-multiple-empty-lines': ['warn', { max: 1 }], // 不允许多个空行
+    'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    'no-unexpected-multiline': 'error', // 禁止空余的多行
+    'no-useless-escape': 'off', // 禁止不必要的转义字符
 
-##### 添加剩余的常见配置文件，优化体验
+    // typeScript (https://typescript-eslint.io/rules)
+    '@typescript-eslint/no-unused-vars': 'error', // 禁止定义未使用的变量
+    '@typescript-eslint/prefer-ts-expect-error': 'error', // 禁止使用 @ts-ignore
+    '@typescript-eslint/no-explicit-any': 'off', // 禁止使用 any 类型
+    '@typescript-eslint/no-non-null-assertion': 'off',
+    '@typescript-eslint/no-namespace': 'off', // 禁止使用自定义 TypeScript 模块和命名空间。
+    '@typescript-eslint/semi': 'off',
 
-`.eslintrcignore、.prettierrc.cjs、.prettierignore`
-
+    // eslint-plugin-vue (https://eslint.vuejs.org/rules/)
+    'vue/multi-word-component-names': 'off', // 要求组件名称始终为 “-” 链接的单词
+    'vue/script-setup-uses-vars': 'error', // 防止<script setup>使用的变量<template>被标记为未使用
+    'vue/no-mutating-props': 'off', // 不允许组件 prop的改变
+    'vue/attribute-hyphenation': 'off', // 对模板中的自定义组件强制执行属性命名样式
+  },
+}
+```
+添加.eslintignore忽略文件
+```
+dist
+node_modules
+```
+添加运行脚本
+```
+"scripts": {
+    "lint": "eslint src",
+    "fix": "eslint src --fix",
+}
+```
+#### prettier配置
+安装
+`pnpm install -D eslint-plugin-prettier prettier eslint-config-prettier`
+创建配置文件.prettierrc.json添加规则
+```
+{
+  "singleQuote": true,
+  "semi": false,
+  "bracketSpacing": true,
+  "htmlWhitespaceSensitivity": "ignore",
+  "endOfLine": "auto",
+  "trailingComma": "all",
+  "tabWidth": 2
+}
+```
 ### [stylelint](https://stylelint.io/user-guide/get-started/)
 
 用于检查 CSS 代码风格和错误的工具，也可以安装 vscode 插件配合使用
@@ -129,7 +231,10 @@ Git 钩子。
     -   初始化
 -   `npm pkg set scripts.prepare="husky install"`
     -   修改`package.json`
-
+-	使用pnpm
+	-	`pnpm install -D husky`
+	-	`npx husky install`
+	-	`pnpm pkg set scripts.prepare="husky install"`
 #### 添加 hook
 
 -   commit-msg
@@ -145,7 +250,7 @@ Git 钩子。
 #### commitlint 初始化
 
 `npm install -D @commitlint/cli @commitlint/config-conventional`  
-@commitlint/config-conventional 可以不安装
+`pnpm install -D @commitlint/cli @commitlint/config-conventional`  
 
 #### 配置
 
@@ -163,7 +268,9 @@ Git 钩子。
 -   test: 添加缺失或更正现有测试
 -   build: 影响构建系统或外部依赖项的更改（gulp，npm 等）
 -   ci: 对 CI 配置文件和脚本的更改
+-	release：发布
 -   chore: 更改构建过程或辅助工具和库，例如文档生成
+-	revert: 回滚到上一个版本
 
 ```
 const types = ['feat', 'fix', 'docs', 'style', 'refactor', 'perf', 'test', 'build', 'release', 'chore', 'revert'];
@@ -184,7 +291,7 @@ module.exports = {
 ### [lint-staged](https://github.com/okonet/lint-staged)
 
 针对暂存的 git 文件运行 linters，不要让 💩 进入你的代码库！
-
+最后在husky的commit-msg钩子中添加`npx --no -- commitlint --edit $1`即可，也可以在scripts中增加commitlint的命令，这里使用`pnpm run commitlint`
 #### lint-staged 初始化
 
 `npm install --save-dev lint-staged`
@@ -203,6 +310,26 @@ npx husky add .husky/pre-commit "npx lint-staged"
 "lint-staged": {
   "src/**/{*.vue,*.js,*.ts,*.jsx,*.tsx}": "eslint --fix",
   "src/**/{*.scss,*.css}": "stylelint --fix"
+}
+```
+### 关于限制使用包管理工具
+如果需要可以限制项目的包管理工具，以pnpm为例  
+在根目录创建scritps/preinstall.js文件
+```
+if (!/pnpm/.test(process.env.npm_execpath || '')) {
+  console.warn(
+    `\u001b[33mThis repository must using pnpm as the package manager ` +
+    ` for scripts to work properly.\u001b[39m\n`,
+  )
+  process.exit(1)
+}
+```
+配置文件中scripts中添加声明周期命令  
+当我们使用npm或者yarn来安装包的时候，就会报错了  
+install的时候会触发preinstall（npm提供的生命周期钩子）  
+```
+"scripts": {
+    "preinstall": "node ./scripts/preinstall.js"
 }
 ```
 
