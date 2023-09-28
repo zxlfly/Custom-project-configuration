@@ -10,8 +10,6 @@
 
 ### vur-router
 
-###
-
 ## 开发代码规范配置
 
 ### [eslint](https://eslint.org/)、[prettier](https://prettier.io/docs/en/install.html)
@@ -80,15 +78,15 @@ module.exports = {
 接着安装些vue3环境代码校验插件
 `pnpm install -D eslint-plugin-import eslint-plugin-vue eslint-plugin-prettier eslint-config-prettier eslint-plugin-node @babel/eslint-parser`
 - 让所有与prettier规则存在冲突的Eslint rules失效，并使用prettier进行代码检查  
-	- "eslint-config-prettier" 
-	- "eslint-plugin-import" 
-	- "eslint-plugin-node"
+    - "eslint-config-prettier" 
+    - "eslint-plugin-import" 
+    - "eslint-plugin-node"
 - 运行更漂亮的Eslint，使prettier规则优先级更高，Eslint优先级低  
-	- "eslint-plugin-prettier"
+    - "eslint-plugin-prettier"
 - vue.js的Eslint插件（查找vue语法错误，发现错误指令，查找违规风格指南  
-	- "eslint-plugin-vue" 
+    - "eslint-plugin-vue" 
 - 该解析器允许使用Eslint校验所有babel code  
-	- "@babel/eslint-parser" 
+    - "@babel/eslint-parser" 
 
 最终配置对象
 ```
@@ -178,46 +176,97 @@ node_modules
   "tabWidth": 2
 }
 ```
+添加.prettierignore忽略文件
+```
+/dist/*
+/html/*
+.local
+/node_modules/**
+**/*.svg
+**/*.sh
+/public/*
+```
+#### 不适用prettier的配置方案
+
 ### [stylelint](https://stylelint.io/user-guide/get-started/)
 
 用于检查 CSS 代码风格和错误的工具，也可以安装 vscode 插件配合使用
 
 #### stylelint 初始化
 
-`npm i install stylelint stylelint-config-standard -D`
+`pnpm add sass sass-loader stylelint postcss postcss-scss postcss-html stylelint-config-prettier stylelint-config-recess-order stylelint-config-recommended-scss stylelint-config-standard stylelint-config-standard-vue stylelint-scss stylelint-order stylelint-config-standard-scss -D`
 
 #### 配置
 
+添加.stylelintrc.cjs配置文件
 ```
-// package.json中添加配置
-"script":{
-    "lint:css": "stylelint src/**/*.{vue,css,sass,scss} --fix"
+// @see https://stylelint.bootcss.com/
+
+module.exports = {
+  extends: [
+    'stylelint-config-standard', // 配置stylelint拓展插件
+    'stylelint-config-html/vue', // 配置 vue 中 template 样式格式化
+    'stylelint-config-standard-scss', // 配置stylelint scss插件
+    'stylelint-config-recommended-vue/scss', // 配置 vue 中 scss 样式格式化
+    'stylelint-config-recess-order', // 配置stylelint css属性书写顺序插件,
+    'stylelint-config-prettier', // 配置stylelint和prettier兼容
+  ],
+  overrides: [
+    {
+      files: ['**/*.(scss|css|vue|html)'],
+      customSyntax: 'postcss-scss',
+    },
+    {
+      files: ['**/*.(html|vue)'],
+      customSyntax: 'postcss-html',
+    },
+  ],
+  ignoreFiles: [
+    '**/*.js',
+    '**/*.jsx',
+    '**/*.tsx',
+    '**/*.ts',
+    '**/*.json',
+    '**/*.md',
+    '**/*.yaml',
+  ],
+  /**
+   * null  => 关闭该规则
+   * always => 必须
+   */
+  rules: {
+    'value-keyword-case': null, // 在 css 中使用 v-bind，不报错
+    'no-descending-specificity': null, // 禁止在具有较高优先级的选择器后出现被其覆盖的较低优先级的选择器
+    'function-url-quotes': 'always', // 要求或禁止 URL 的引号 "always(必须加上引号)"|"never(没有引号)"
+    'no-empty-source': null, // 关闭禁止空源码
+    'selector-class-pattern': null, // 关闭强制选择器类名的格式
+    'property-no-unknown': null, // 禁止未知的属性(true 为不允许)
+    'block-opening-brace-space-before': 'always', //大括号之前必须有一个空格或不能有空白符
+    'value-no-vendor-prefix': null, // 关闭 属性值前缀 --webkit-box
+    'property-no-vendor-prefix': null, // 关闭 属性前缀 -webkit-mask
+    'selector-pseudo-class-no-unknown': [
+      // 不允许未知的选择器
+      true,
+      {
+        ignorePseudoClasses: ['global', 'v-deep', 'deep'], // 忽略属性，修改element默认样式的时候能使用到
+      },
+    ],
+  },
 }
 ```
-
-根目录下建立 .stylelintrc.cjs  
-stylelint-config-standard 是一个标准样式库，也可以自动添加一些样式规则在
-stylelintrc.cjs 文件里面  
-增加 vue 里面的样式支持（附带 less 和 scss 的支持）  
-对 less 的支持  
-`npm install stylelint-less stylelint-config-recommended-less -D`
-
-对 scss 的支持  
-`npm install stylelint-scss stylelint-config-recommended-scss postcss -D`
-
-对 vue 里面样式的支持，vue 的样式需要依赖前面这个库  
-`npm install postcss-html stylelint-config-standard-scss stylelint-config-recommended-vue postcss -D`  
-Vite 也同时提供了对 .scss .sass .less .styl .stylus 文件的内置支持，不需要再安装
-特定插件和预处理器  
-给 vite 添加插件  
-`npm install vite-plugin-stylelint -D`  
-修改 vite.config.js 文件
-
+添加.stylelintignore忽略文件
 ```
-import stylelitPlugin from 'vite-plugin-stylelint';
-plugins: [... stylelitPlugin()],
+/node_modules/*
+/dist/*
+/html/*
+/public/*
 ```
-
+添加运行脚本
+```
+"script":{
+    "lint:css": "stylelint src/**/*.{vue,css,sass,scss} --cache --fix"
+}
+```
 ### [husky](https://typicode.github.io/husky/#/?id=manual)
 
 提交或推送时，可以使用它来整理提交消息、运行测试、lint 代码等。Husky 支持所有
@@ -231,10 +280,10 @@ Git 钩子。
     -   初始化
 -   `npm pkg set scripts.prepare="husky install"`
     -   修改`package.json`
--	使用pnpm
-	-	`pnpm install -D husky`
-	-	`npx husky install`
-	-	`pnpm pkg set scripts.prepare="husky install"`
+-   使用pnpm
+    -   `pnpm install -D husky`
+    -   `npx husky install`
+    -   `pnpm pkg set scripts.prepare="husky install"`
 #### 添加 hook
 
 -   commit-msg
@@ -268,9 +317,9 @@ Git 钩子。
 -   test: 添加缺失或更正现有测试
 -   build: 影响构建系统或外部依赖项的更改（gulp，npm 等）
 -   ci: 对 CI 配置文件和脚本的更改
--	release：发布
+-   release：发布
 -   chore: 更改构建过程或辅助工具和库，例如文档生成
--	revert: 回滚到上一个版本
+-   revert: 回滚到上一个版本
 
 ```
 const types = ['feat', 'fix', 'docs', 'style', 'refactor', 'perf', 'test', 'build', 'release', 'chore', 'revert'];
