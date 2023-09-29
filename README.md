@@ -19,7 +19,7 @@
 
 #### eslint配置
 首先安装eslint  
-`pnpm i eslint -D`
+`pnpm add eslint -D`
 生成配置文件:.eslint.js  
 `npx eslint --init`  
 生成配置文件的一些选项，根据实际项目需求选择：  
@@ -187,7 +187,22 @@ node_modules
 /public/*
 ```
 #### 不适用prettier的配置方案
-
+安装`pnpm i -D eslint @antfu/eslint-config`  
+配置步骤参考[文档](https://github.com/antfu/eslint-config)  
+可以在IDE配置文件中添加一些优化开发体验的配置  
+.vscode/extensions.json插件相关，没有会提示现下载  
+```
+{
+  "recommendations": [
+		"Vue.volar",
+		"Vue.vscode-typescript-vue-plugin",
+		"dbaeumer.vscode-eslint",
+		"stylelint.vscode-stylelint",
+		"EditorConfig.EditorConfig"
+  ]
+}
+```
+.vscode/settings.json配置编辑器的一些设置，在@antfu/eslint-config的文档中有提供一个配置，可以直接使用，后续关于css相关的，我们使用stylelint。
 ### [stylelint](https://stylelint.io/user-guide/get-started/)
 
 用于检查 CSS 代码风格和错误的工具，也可以安装 vscode 插件配合使用
