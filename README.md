@@ -75,7 +75,7 @@ module.exports = {
     }
 }
 ```
-接着安装些vue3环境代码校验插件
+接着安装些vue3环境代码校验插件(可以参考vue官网文档搭建)
 `pnpm install -D eslint-plugin-import eslint-plugin-vue eslint-plugin-prettier eslint-config-prettier eslint-plugin-node @babel/eslint-parser`
 - 让所有与prettier规则存在冲突的Eslint rules失效，并使用prettier进行代码检查  
     - "eslint-config-prettier" 
