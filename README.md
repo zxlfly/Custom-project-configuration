@@ -111,7 +111,7 @@ module.exports = {
             jsx: true,
         },
     },
-    /* 继承已有的规则 */
+    /* 继承已有的规则  使用了自动引入插件就需要将生成的./.eslintrc-auto-import.json文件引入*/
     extends: [
         "eslint:recommended",
         "plugin:vue/vue3-essential",
