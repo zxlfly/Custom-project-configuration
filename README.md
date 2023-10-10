@@ -34,47 +34,6 @@ The config that you've selected requires the following dependencies:
 eslint-plugin-vue@latest @typescript-eslint/eslint-plugin@latest @typescript-eslint/parser@latest  
 √ Would you like to install them now? · No / Yes  
 √ Which package manager do you want to use? · pnpm  
-```
-module.exports = {
-   //运行环境
-    "env": { 
-        "browser": true,//浏览器端
-        "es2021": true,//es2021
-    },
-    //规则继承
-    "extends": [ 
-       //全部规则默认是关闭的,这个配置项开启推荐规则,推荐规则参照文档
-       //比如:函数不能重名、对象不能出现重复key
-        "eslint:recommended",
-        //vue3语法规则
-        "plugin:vue/vue3-essential",
-        //ts语法规则
-        "plugin:@typescript-eslint/recommended"
-    ],
-    //要为特定类型的文件指定处理器
-    "overrides": [
-    ],
-    //指定解析器:解析器
-    //Esprima 默认解析器
-    //Babel-ESLint babel解析器
-    //@typescript-eslint/parser ts解析器
-    "parser": "@typescript-eslint/parser",
-    //指定解析器选项
-    "parserOptions": {
-        "ecmaVersion": "latest",//校验ECMA最新版本
-        "sourceType": "module"//设置为"script"（默认），或者"module"代码在ECMAScript模块中
-    },
-    //ESLint支持使用第三方插件。在使用插件之前，您必须使用npm安装它
-    //该eslint-plugin-前缀可以从插件名称被省略
-    "plugins": [
-        "vue",
-        "@typescript-eslint"
-    ],
-    //eslint规则
-    "rules": {
-    }
-}
-```
 接着安装些vue3环境代码校验插件(可以参考vue官网文档搭建)
 `pnpm install -D eslint-plugin-import eslint-plugin-vue eslint-plugin-prettier eslint-config-prettier eslint-plugin-node @babel/eslint-parser`
 - 让所有与prettier规则存在冲突的Eslint rules失效，并使用prettier进行代码检查  
@@ -159,7 +118,6 @@ module.exports = {
             },
         ],
         semi: "off",
-        // "prettier/prettier": "off",
         "prettier/prettier": "error",
     },
 }
@@ -231,8 +189,9 @@ node_modules
 用于检查 CSS 代码风格和错误的工具，也可以安装 vscode 插件配合使用
 
 #### stylelint 初始化
-
-`pnpm add sass sass-loader stylelint postcss postcss-scss postcss-html stylelint-config-prettier stylelint-config-recess-order stylelint-config-recommended-scss stylelint-config-standard stylelint-config-standard-vue stylelint-scss stylelint-order stylelint-config-standard-scss -D`
+`pnpm add stylelint stylelint-config-standard -D`  
+增加对vue中样式和scss的支持  
+`pnpm add stylelint-scss stylelint-config-standard-scss stylelint-config-recommended-vue -D`  
 
 #### 配置
 
@@ -241,56 +200,60 @@ node_modules
 // @see https://stylelint.bootcss.com/
 
 module.exports = {
-  extends: [
-    'stylelint-config-standard', // 配置stylelint拓展插件
-    'stylelint-config-html/vue', // 配置 vue 中 template 样式格式化
-    'stylelint-config-standard-scss', // 配置stylelint scss插件
-    'stylelint-config-recommended-vue/scss', // 配置 vue 中 scss 样式格式化
-    'stylelint-config-recess-order', // 配置stylelint css属性书写顺序插件,
-    'stylelint-config-prettier', // 配置stylelint和prettier兼容
-  ],
-  overrides: [
-    {
-      files: ['**/*.(scss|css|vue|html)'],
-      customSyntax: 'postcss-scss',
-    },
-    {
-      files: ['**/*.(html|vue)'],
-      customSyntax: 'postcss-html',
-    },
-  ],
-  ignoreFiles: [
-    '**/*.js',
-    '**/*.jsx',
-    '**/*.tsx',
-    '**/*.ts',
-    '**/*.json',
-    '**/*.md',
-    '**/*.yaml',
-  ],
-  /**
-   * null  => 关闭该规则
-   * always => 必须
-   */
-  rules: {
-    'value-keyword-case': null, // 在 css 中使用 v-bind，不报错
-    'no-descending-specificity': null, // 禁止在具有较高优先级的选择器后出现被其覆盖的较低优先级的选择器
-    'function-url-quotes': 'always', // 要求或禁止 URL 的引号 "always(必须加上引号)"|"never(没有引号)"
-    'no-empty-source': null, // 关闭禁止空源码
-    'selector-class-pattern': null, // 关闭强制选择器类名的格式
-    'property-no-unknown': null, // 禁止未知的属性(true 为不允许)
-    //'block-opening-brace-space-before': 'always', //大括号之前必须有一个空格或不能有空白符
-    'value-no-vendor-prefix': null, // 关闭 属性值前缀 --webkit-box
-    'property-no-vendor-prefix': null, // 关闭 属性前缀 -webkit-mask
-    'selector-pseudo-class-no-unknown': [
-      // 不允许未知的选择器
-      true,
-      {
-        ignorePseudoClasses: ['global', 'v-deep', 'deep'], // 忽略属性，修改element默认样式的时候能使用到
-      },
+    extends: [
+        "stylelint-config-standard", // 配置stylelint拓展插件
+        // "stylelint-config-html/vue", // 配置 vue 中 template 样式格式化
+        "stylelint-config-standard-scss", // 配置stylelint scss插件
+        "stylelint-config-recommended-vue/scss", // 配置 vue 中 scss 样式格式化
+        // "stylelint-config-recess-order", // 配置stylelint css属性书写顺序插件,
+        // "stylelint-config-prettier", // 配置stylelint和prettier兼容
     ],
-  },
+    plugins: ["stylelint-scss"],
+    // overrides: [
+    //     {
+    //         files: ["**/*.(scss|css|vue|html)"],
+    //         customSyntax: "postcss-scss",
+    //     },
+    //     {
+    //         files: ["**/*.(html|vue)"],
+    //         customSyntax: "postcss-html",
+    //     },
+    // ],
+    ignoreFiles: [
+        "**/*.js",
+        "**/*.jsx",
+        "**/*.tsx",
+        "**/*.ts",
+        "**/*.json",
+        "**/*.md",
+        "**/*.yaml",
+        "index.html",
+    ],
+    /**
+     * null  => 关闭该规则
+     * always => 必须
+     */
+    rules: {
+        "value-keyword-case": null, // 在 css 中使用 v-bind，不报错
+        "no-descending-specificity": null, // 禁止在具有较高优先级的选择器后出现被其覆盖的较低优先级的选择器
+        "function-url-quotes": "always", // 要求或禁止 URL 的引号 "always(必须加上引号)"|"never(没有引号)"
+        "no-empty-source": null, // 关闭禁止空源码
+        "selector-class-pattern": null, // 关闭强制选择器类名的格式
+        "property-no-unknown": null, // 禁止未知的属性(true 为不允许)
+        //'block-opening-brace-space-before': 'always', //大括号之前必须有一个空格或不能有空白符
+        "value-no-vendor-prefix": null, // 关闭 属性值前缀 --webkit-box
+        "property-no-vendor-prefix": null, // 关闭 属性前缀 -webkit-mask
+        "selector-pseudo-class-no-unknown": [
+            // 不允许未知的选择器
+            true,
+            {
+                ignorePseudoClasses: ["global", "v-deep", "deep"], // 忽略属性，修改element默认样式的时候能使用到
+            },
+        ],
+        "scss/operator-no-newline-after": null,
+    },
 }
+
 ```
 添加.stylelintignore忽略文件
 ```
