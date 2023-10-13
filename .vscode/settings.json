@@ -1,58 +1,80 @@
 {
-	"editor.codeActionsOnSave": {
-		"source.fixAll": true,
-		"source.fixAll.eslint": true,
-		"source.fixAll.stylelint": true
-	},
-	"stylelint.validate": ["css", "less", "scss", "vue"],
-	"eslint.probe": [
-		"javascript",
-		"javascriptreact",
-		"typescript",
-		"typescriptreact",
-		"html",
-		"vue",
-		"markdown",
-		"jsonc"
-	],
-	"eslint.validate": [
-		"javascript",
-		"javascriptreact",
-		"typescript",
-		"typescriptreact",
-		"html",
-		"vue",
-		"markdown",
-		"jsonc"
-	],
-	"editor.defaultFormatter": "esbenp.prettier-vscode",
-	"[javascript]": {
-		"editor.defaultFormatter": "esbenp.prettier-vscode"
-	},
-	"[vue]": {
-		"editor.defaultFormatter": "esbenp.prettier-vscode"
-	},
-	"[ts]": {
-		"editor.defaultFormatter": "esbenp.prettier-vscode"
-	},
-	"[less]": {
-		"editor.defaultFormatter": "esbenp.prettier-vscode"
-	},
-	"[scss]": {
-		"editor.defaultFormatter": "esbenp.prettier-vscode"
-	},
-	"tabnine.experimentalAutoImports": true,
-	"editor.fontSize": 18,
-	"editor.cursorBlinking": "expand",
-	"editor.mouseWheelZoom": true,
-	"editor.formatOnPaste": true,
-	"editor.formatOnType": true,
-	"editor.guides.bracketPairs": true,
-	"editor.acceptSuggestionOnEnter": "smart",
-	"editor.suggestSelection": "recentlyUsed",
-	"debug.showBreakpointsInOverviewRuler": true,
-	"editor.formatOnSave": true,
-	"prettier.useTabs": true,
-	"window.zoomLevel": 1,
-	"prettier.tabWidth": 4
+    "editor.codeActionsOnSave": {
+        "source.fixAll": true,
+        "source.fixAll.eslint": true,
+        "source.fixAll.stylelint": true
+    },
+    "stylelint.validate": ["css", "less", "scss", "vue"],
+    "eslint.probe": [
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact",
+        "html",
+        "vue",
+        "markdown",
+        "jsonc"
+    ],
+    "eslint.validate": [
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact",
+        "html",
+        "vue",
+        "markdown",
+        "jsonc"
+    ],
+    "[markdown]": {
+        "editor.formatOnSave": false
+    },
+    // "eslint.format.enable": true,
+    // "[javascript]": {
+    //     "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+    // },
+    // "[vue]": {
+    //     "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+    // },
+    // "[typescript]": {
+    //     "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+    // },
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[vue]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[ts]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[less]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[scss]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "tabnine.experimentalAutoImports": true,
+    "editor.fontSize": 18,
+    "editor.cursorBlinking": "expand",
+    "editor.mouseWheelZoom": true,
+    "editor.formatOnPaste": true,
+    "editor.formatOnType": true,
+    "editor.guides.bracketPairs": true,
+    "editor.acceptSuggestionOnEnter": "smart",
+    "editor.suggestSelection": "first",
+    "debug.showBreakpointsInOverviewRuler": true,
+    "editor.formatOnSave": true,
+    "prettier.useTabs": false,
+    "window.zoomLevel": 1,
+    "prettier.tabWidth": 4,
+    "latex-workshop.bibtex-format.tab": "4 spaces",
+    "markdown.editor.drop.enabled": false,
+    "markdown.preview.breaks": true,
+    "security.workspace.trust.untrustedFiles": "open",
+    "explorer.compactFolders": false,
+    "liveServer.settings.donotShowInfoMsg": true,
+    "telemetry.telemetryLevel": "off",
+    "code-runner.enableAppInsights": false,
+    "diffEditor.ignoreTrimWhitespace": false
 }
