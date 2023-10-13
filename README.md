@@ -130,9 +130,7 @@ node_modules
 添加运行脚本
 ```
 "scripts": {
-    "lint": "eslint src",
-    "fix": "eslint src --fix",
-	  "lint:eslint": "eslint src/**/*.{ts,vue} --cache --fix",
+	"lint:eslint": "eslint src/**/*.{ts,vue} --cache --fix",
 }
 ```
 #### prettier配置
