@@ -181,7 +181,9 @@ node_modules
   ]
 }
 ```
-.vscode/settings.json配置编辑器的一些设置，在@antfu/eslint-config的文档中有提供一个配置，可以直接使用，后续关于css相关的，我们使用stylelint。
+.vscode/settings.json配置编辑器的一些设置，在@antfu/eslint-config的文档中有提供一个配置，可以直接使用，后续关于css相关的，我们使用stylelint。  
+需要说一下的是eslint官方不推荐 eslint 做 formater，eslint 与 formater 相关的规则已经不维护了。如果不喜欢使用prettier，可以使用rome、biome。  
+我个人不建议使用这个
 ### [stylelint](https://stylelint.io/user-guide/get-started/)
 
 用于检查 CSS 代码风格和错误的工具，也可以安装 vscode 插件配合使用
