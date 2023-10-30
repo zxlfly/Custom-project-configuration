@@ -110,11 +110,17 @@ module.exports = {
         "vue/script-setup-uses-vars": "error", // 防止<script setup>使用的变量<template>被标记为未使用
         "vue/no-mutating-props": "off", // 不允许组件 prop的改变
         "vue/attribute-hyphenation": "off", // 对模板中的自定义组件强制执行属性命名样式
+        // "vue/v-on-event-hyphenation": [
+        //     "error",
+        //     "never",
+        //     { ignore: ["custom-event"] },
+        // ],
+        // "vue/v-on-event-hyphenation": "off",
         indent: [
             "error",
             4,
             {
-                ignoredNodes: ["ConditionalExpression"],
+                ignoredNodes: ["ConditionalExpression", "SwitchCase"],
             },
         ],
         semi: "off",
@@ -189,7 +195,7 @@ node_modules
 用于检查 CSS 代码风格和错误的工具，也可以安装 vscode 插件配合使用
 
 #### stylelint 初始化
-`pnpm add stylelint stylelint-config-standard -D`  
+`pnpm add  stylelint stylelint-config-standard -D`  
 增加对vue中样式和scss的支持  
 `pnpm add stylelint-scss stylelint-config-standard-scss stylelint-config-recommended-vue -D`  
 
