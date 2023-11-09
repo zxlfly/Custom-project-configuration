@@ -5,6 +5,8 @@
 默认使用 vite`npm create vite@latest`  
 默认选择 Vue + ts 开发  
 后续可能考虑升级为 pnpm
+推荐使用 `pnpm create vue@latest`  
+其中的eslint等相关的可以不使用推荐自行配置
 
 ## Vue 全家桶安装
 
