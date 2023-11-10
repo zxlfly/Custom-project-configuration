@@ -36,7 +36,7 @@ The config that you've selected requires the following dependencies:
 eslint-plugin-vue@latest @typescript-eslint/eslint-plugin@latest @typescript-eslint/parser@latest  
 √ Would you like to install them now? · No / Yes  
 √ Which package manager do you want to use? · pnpm  
-接着安装些vue3环境代码校验插件(可以参考vue官网文档搭建)
+接着安装些vue3环境代码校验插件(可以参考vue官网文档搭建)  
 `pnpm install -D eslint-plugin-import eslint-plugin-vue eslint-plugin-prettier eslint-config-prettier eslint-plugin-node @babel/eslint-parser`
 - 让所有与prettier规则存在冲突的Eslint rules失效，并使用prettier进行代码检查  
     - "eslint-config-prettier" 
@@ -173,6 +173,8 @@ node_modules
     "format": "prettier --write \"./**/*.{html,vue,ts,js,json,md}\"",
 }
 ```
+#### eslint+prettier冲突问题
+在实际开发中，可能会出现预期之外的冲突，最常见的就是indent相关的，目前在实际项目中见到最多的就是有的人会写很复杂的三目运算，导致冲突，此时可以考虑关闭indent检测，默认使用prettier的格式化功能也是可以的。
 #### 不使用prettier的配置方案
 安装`pnpm i -D eslint @antfu/eslint-config`  
 配置步骤参考[文档](https://github.com/antfu/eslint-config)  
