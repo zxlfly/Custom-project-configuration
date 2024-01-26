@@ -293,7 +293,7 @@ Git 钩子。
     -   修改`package.json`
 -   使用pnpm
     -   `pnpm install -D husky`
-    -   `npx husky install`
+    -   `pnpm exec husky init`
     -   `pnpm pkg set scripts.prepare="husky install"`
 #### 添加 hook
 
