@@ -314,7 +314,7 @@ Git 钩子。
 
 #### 配置
 
-需要配合 husky 使用，在 commit-msg 中配置
+需要配合 husky 使用，在 commit-msg 中配置  
 `echo "module.exports = {extends: ['@commitlint/config-conventional']}" > commitlint.config.js`  
 **需要注意的是如果 package.json 中设置"type": "module"，那么需要将后缀改为 cjs**
 一般项目中，我们会自定义规则。在 commitlint.config.js 文件中配置
