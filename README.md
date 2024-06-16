@@ -292,7 +292,7 @@ Git 钩子。
 -   `npm pkg set scripts.prepare="husky install"`
     -   修改`package.json`
 -   使用pnpm
-    -   `pnpm install -D husky`
+    -   `pnpm add --save-dev husky`
     -   `pnpm exec husky init`
     -   `pnpm pkg set scripts.prepare="husky install"`
 #### 添加 hook
@@ -309,8 +309,8 @@ Git 钩子。
 
 #### commitlint 初始化
 
-`npm install -D @commitlint/cli @commitlint/config-conventional`  
-`pnpm install -D @commitlint/cli @commitlint/config-conventional`  
+`npm install --save-dev @commitlint/{cli,config-conventional}`  
+`pnpm add --save-dev @commitlint/{cli,config-conventional}`  
 
 #### 配置
 
